@@ -1,4 +1,4 @@
-service: trpc-lambda
+service: trpc-lambda-esbuild
 frameworkVersion: "3"
 
 # クラウドプロバイダの設定
@@ -14,19 +14,19 @@ package:
   patterns:
     - "!**"
     - "node_modules/**"
-    - "src/**/*.js"
+    - "dist/**/*.js"
 
 functions:
   # API Gateway v2
   http-api:
-    handler: src/index.handler
+    handler: dist/index.handler
     events:
       - httpApi:
           path: /{proxy+}
           method: any
   # API Gateway v1
   rest-api:
-    handler: src/index.handler
+    handler: dist/index.handler
     events:
       - http:
           path: /{proxy+}
