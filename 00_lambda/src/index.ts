@@ -32,4 +32,14 @@ export type AppRouter = typeof appRouter;
 export const handler = awsLambdaRequestHandler({
   router: appRouter,
   createContext,
+  responseMeta() {
+    return {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,POST",
+        "Access-Control-Allow-Headers":
+          "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+      },
+    };
+  },
 });
