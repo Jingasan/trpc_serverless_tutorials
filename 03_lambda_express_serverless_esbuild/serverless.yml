@@ -1,0 +1,49 @@
+service: trpc-lambda-sls-esbuild
+frameworkVersion: "3"
+
+# esbuildのビルド設定
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude: ["aws-sdk"]
+    target: "node16"
+    define: { "require.resolve": undefined }
+    platform: "node"
+    concurrency: 10
+    watch:
+      # match only typescript files in src directory
+      pattern: ["src/**/*.ts"]
+
+# クラウドプロバイダの設定
+provider:
+  name: aws
+  region: ap-northeast-1
+  runtime: nodejs16.x
+  stage: dev
+  timeout: 29
+
+# デプロイ対象のファイルの指定
+package:
+  individually: true
+
+functions:
+  # API Gateway v2
+  http-api:
+    handler: src/index.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: any
+  # API Gateway v1
+  rest-api:
+    handler: src/index.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+
+plugins:
+  - serverless-esbuild

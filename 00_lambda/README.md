@@ -1,6 +1,8 @@
-# Usage
+# 00_lambda
 
-１．Build and deploy
+tRPC + lambda による API のサンプルです。
+
+## ビルド・デプロイ方法
 
 ```
 $ npm install
@@ -8,7 +10,7 @@ $ npm build
 $ npm deploy
 ```
 
-２．Call API
+## API 実行方法
 
 API URL (API Gateway v2):
 

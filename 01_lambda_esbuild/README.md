@@ -1,6 +1,9 @@
-# Usage
+# 01_lambda_esbuild
 
-１．Build and deploy
+tRPC + lambda による API のサンプルです。
+コードのビルドには esbuild を用います。
+
+## ビルド・デプロイ方法
 
 ```
 $ npm install
@@ -8,7 +11,7 @@ $ npm build
 $ npm deploy
 ```
 
-２．Call API
+## API 実行方法
 
 API URL (API Gateway v2):
 

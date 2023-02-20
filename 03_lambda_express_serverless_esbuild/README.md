@@ -1,14 +1,14 @@
-# 02_lambda_express_esbuild
+# 03_lambda_express_serverless_esbuild
 
-tRPC + lambda + express による API のサンプルです。
-コードのビルドには esbuild を用います。
+serverless-esbuild という Serverless Framework のプラグインを用い、
+npx sls deploy コマンドによるデプロイ実行時に
+一緒に esbuild によるビルドを行ってしまうサンプルです。
 
 ## ビルド・デプロイ方法
 
 ```
 $ npm install
-$ npm build
-$ npm deploy
+$ npx sls deploy
 ```
 
 ## API 実行方法
