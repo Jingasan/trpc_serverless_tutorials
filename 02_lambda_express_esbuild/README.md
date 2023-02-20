@@ -1,7 +1,5 @@
-# 02_lambda_express_esbuild
-
 tRPC + lambda + express による API のサンプルです。
-コードのビルドには esbuild を用います。
+コードのビルドには esbuild を用い、バンドルとMinifyを行います。
 
 ## ビルド・デプロイ方法
 
