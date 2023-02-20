@@ -1,5 +1,3 @@
-# 01_lambda_esbuild
-
 tRPC + lambda による API のサンプルです。
 コードのビルドには esbuild を用います。
 
