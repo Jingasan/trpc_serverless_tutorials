@@ -1,13 +1,16 @@
+# サービス名
 service: trpc-lambda-esbuild
+
+# Serverless Frameworkのバージョン指定
 frameworkVersion: "3"
 
 # クラウドプロバイダの設定
 provider:
-  name: aws
-  region: ap-northeast-1
-  runtime: nodejs16.x
-  stage: dev
-  timeout: 29
+  name: aws # デプロイ先のクラウドプロバイダ名
+  region: ap-northeast-1 # デプロイ先の地域
+  runtime: nodejs16.x # 実行環境
+  stage: dev # ステージ名
+  timeout: 29 # Lambdaのタイムアウト時間(最大:900s)
 
 # デプロイ対象のファイルの指定
 package:
@@ -16,19 +19,18 @@ package:
     - "node_modules/**"
     - "dist/**/*.js"
 
+# 以下、tRPCのAPIをAPI Gateway v2とv1で2つ作成
 functions:
-  # API Gateway v2
-  http-api:
-    handler: dist/index.handler
-    events:
-      - httpApi:
-          path: /{proxy+}
-          method: any
-  # API Gateway v1
-  rest-api:
-    handler: dist/index.handler
-    events:
-      - http:
-          path: /{proxy+}
-          method: any
-          cors: true
+  http-api: # サービス名＋ステージ名＋この名前でLambdaリソースが作成される
+    handler: dist/index.handler # ハンドラ関数までのパスの指定
+    events: # 以下でLambda呼び出しのイベントを指定
+      - httpApi: # 利用するAPIの種類の設定：HTTP API (API Gateway v2)を指定
+          path: /{proxy+} # 許可するAPIパス：すべてのパスを容認
+          method: any # 許可するHTTPメソッド：すべてのHTTPメソッドを容認
+  rest-api: # サービス名＋ステージ名＋この名前でLambdaリソースが作成される
+    handler: dist/index.handler # ハンドラ関数までのパスの指定
+    events: # 以下でLambda呼び出しのイベントを指定
+      - http: # 利用するAPIの種類の設定：Rest API (API Gateway v1)を指定
+          path: /{proxy+} # 許可するAPIパス：すべてのパスを容認
+          method: any # 許可するHTTPメソッド：すべてのHTTPメソッドを容認
+          cors: true # CORSを有効化
